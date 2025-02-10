@@ -11,7 +11,7 @@ import {
   CardText,
   CardHeader,
   SubmitBar,
-} from "@nudmcdgnpm/digit-ui-react-components";
+} from "@upyog/digit-ui-react-components";
 import React, { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
@@ -67,8 +67,8 @@ const WSApplicationDetails = () => {
   );
 
   const { isLoading: isPTLoading, isError: isPTError, error: PTerror, data: PTData } = Digit.Hooks.pt.usePropertySearch(
-    { filters: { propertyIds: data?.WaterConnection?.[0]?.propertyId } },
-    { filters: { propertyIds: data?.WaterConnection?.[0]?.propertyId }, privacy: Digit.Utils.getPrivacyObject() }
+    { filters: { propertyIds: data?.WaterConnection ? data?.WaterConnection?.[0]?.propertyId : data?.SewerageConnections?.[0]?.propertyId } },
+    { filters: { propertyIds: data?.WaterConnection ? data?.WaterConnection?.[0]?.propertyId : data?.SewerageConnections?.[0]?.propertyId}, privacy: Digit.Utils.getPrivacyObject() }
   );
 
   const checkifPrivacyenabled = Digit.Hooks.ws.useToCheckPrivacyEnablement({privacy : { uuid:(applicationNobyData?.includes("WS") ? data?.WaterConnection?.[0]?.connectionHolders?.[0]?.uuid : data?.SewerageConnections?.[0]?.connectionHolders?.[0]?.uuid), fieldName: "connectionHoldersMobileNumber", model: "WnSConnectionOwner" }}) || false;
